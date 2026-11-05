@@ -1,4 +1,6 @@
-<script setup>
+<script setup lang="ts">
+import { fr } from '@nuxt/ui/locale'
+
 useHead({
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' }
@@ -8,53 +10,32 @@ useHead({
   ],
   htmlAttrs: {
     lang: 'fr'
-  }
+  },
+  titleTemplate: title => title ? `Clair Obscur : Expedition 33 — ${title}` : 'Clair Obscur : Expedition 33'
 })
 
-const title = 'Nuxt Starter Template'
-const description = 'A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours.'
-
 useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
-  twitterCard: 'summary_large_image'
+  description: 'Site vitrine non officiel consacré à Clair Obscur : Expedition 33, le RPG de Sandfall Interactive.'
 })
 </script>
 
 <template>
-  <UApp>
-    <UHeader>
-      <template #left>
-        <NuxtLink
-          to="/"
-          class="focus-visible:outline-3 outline-primary/25 rounded-md p-1 -ms-1"
-        >
-          <AppLogo class="w-auto h-6 shrink-0" />
-        </NuxtLink>
+  <UApp :locale="fr">
+    <a
+      class="skip-link"
+      href="#contenu"
+    >Aller au contenu</a>
 
-        <TemplateMenu />
-      </template>
+    <AppHeader />
 
-      <template #right>
-        <UColorModeButton />
-
-        <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
-      </template>
-    </UHeader>
-    <UMain>
+    <UMain
+      id="contenu"
+      tabindex="-1"
+      class="outline-none"
+    >
       <NuxtPage />
     </UMain>
-    <UFooter>
-    </UFooter>
+
+    <AppFooter />
   </UApp>
 </template>

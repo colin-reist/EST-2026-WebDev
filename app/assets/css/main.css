@@ -2,17 +2,261 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-ui: 'Jost', system-ui, sans-serif;
+  --font-sans: var(--font-display);
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  /* Palette « or » utilisée comme couleur primaire de Nuxt UI */
+  --color-gold-50: #FAF6EC;
+  --color-gold-100: #F3E9D2;
+  --color-gold-200: #E7D3A6;
+  --color-gold-300: #DDBE7F;
+  --color-gold-400: #D9B46A;
+  --color-gold-500: #C8A25A;
+  --color-gold-600: #A9843F;
+  --color-gold-700: #86662E;
+  --color-gold-800: #6B4E1C;
+  --color-gold-900: #4D3815;
+  --color-gold-950: #2E210C;
+
+  /* Design tokens de la maquette */
+  --color-ground: #0D0C0B;
+  --color-surface: #15120F;
+  --color-surface-2: #1C1813;
+  --color-footer: #0A0908;
+  --color-ivory: #EEE6D3;
+  --color-sand: #CFC4AC;
+  --color-ash: #9D927C;
+  --color-idle: #B9AE97;
+  --color-crimson: #A3352B;
+  --color-parchment: #ECE4D1;
+  --color-ink: #1A1714;
+  --color-ink-soft: #3B342B;
+  --color-bronze: #6B4E1C;
+}
+
+/* Thème unique (pas de mode clair/sombre) : on branche les variables Nuxt UI sur les tokens */
+:root {
+  --ui-radius: 0;
+  --ui-container: 1304px; /* 1240px de contenu + 2 × 32px de gouttière */
+  --ui-header-height: 72px;
+
+  --ui-primary: var(--color-gold-500);
+
+  --ui-bg: var(--color-ground);
+  --ui-bg-muted: var(--color-surface);
+  --ui-bg-elevated: var(--color-surface-2);
+  --ui-bg-accented: var(--color-surface-2);
+  --ui-bg-inverted: var(--color-ivory);
+
+  --ui-text: var(--color-ivory);
+  --ui-text-highlighted: var(--color-ivory);
+  --ui-text-toned: var(--color-sand);
+  --ui-text-muted: var(--color-sand);
+  --ui-text-dimmed: var(--color-ash);
+  --ui-text-inverted: var(--color-ground);
+
+  --ui-border: rgb(238 230 211 / 0.18);
+  --ui-border-muted: rgb(238 230 211 / 0.12);
+  --ui-border-accented: rgb(200 162 90 / 0.28);
+  --ui-border-inverted: var(--color-ivory);
+}
+
+/* Sections claires (parchemin) : le « clair » du clair-obscur */
+.parchment {
+  --ui-primary: var(--color-bronze);
+  --ui-bg: var(--color-parchment);
+  --ui-text: var(--color-ink);
+  --ui-text-highlighted: var(--color-ink);
+  --ui-text-toned: var(--color-ink-soft);
+  --ui-text-muted: var(--color-ink-soft);
+  --ui-text-dimmed: var(--color-ink-soft);
+  --ui-border: var(--color-ink);
+  --ui-border-muted: rgb(26 23 20 / 0.25);
+
+  background: var(--color-parchment);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-display);
+}
+
+html {
+  scroll-padding-top: var(--ui-header-height);
+  scroll-behavior: smooth;
+}
+
+/* Courbe commune : départ vif, arrivée tout en douceur */
+:root {
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Transition entre les pages */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.35s var(--ease-soft), transform 0.35s var(--ease-soft);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-leave-to {
+  opacity: 0;
+}
+
+/* Apparition au défilement (directive v-reveal) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease-soft), transform 0.8s var(--ease-soft);
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Entrée en cascade (hero et en-têtes de page) */
+.rise {
+  animation: rise 0.9s var(--ease-soft) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+/* Monolithe : le « 33 » luit doucement */
+.monolith-number {
+  animation: glow 5s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgb(200 162 90 / 0.55));
+  }
+}
+
+/* Tuiles de l’accueil : la flèche avance au survol (l’élévation est dans index.vue) */
+.tile-arrow {
+  display: inline-block;
+  transition: transform 0.4s var(--ease-soft);
+}
+
+.tile:hover .tile-arrow {
+  transform: translateX(6px);
+}
+
+/* Fiche personnage : fondu au changement */
+.fiche-enter-active,
+.fiche-leave-active {
+  transition: opacity 0.25s var(--ease-soft), transform 0.25s var(--ease-soft);
+}
+
+.fiche-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.fiche-leave-to {
+  opacity: 0;
+}
+
+/* Focus visible : contour or de 2 px, décalage de 3 px (bronze sur parchemin pour le contraste) */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-gold-500) !important;
+  outline-offset: 3px;
+}
+
+.parchment a:focus-visible,
+.parchment button:focus-visible {
+  outline-color: var(--color-bronze) !important;
+}
+
+/* Tuiles-liens (UPageCard avec `to`) : le lien couvre la carte, c’est la carte qui reçoit le contour */
+.tile:has(> a:focus-visible) {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+}
+
+.tile > a:focus-visible {
+  outline: none !important;
+}
+
+/* Lien d’évitement */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--color-gold-500);
+  color: var(--color-ground);
+  font-family: var(--font-ui);
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Fond des en-têtes de page */
+.page-glow {
+  background: radial-gradient(ellipse at 80% 20%, #2A2219 0%, var(--color-ground) 60%);
+}
+
+/* Pétales qui tombent doucement */
+.petal {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: petal-fall 18s linear infinite;
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate(0, -40px) rotate(0deg);
+    opacity: 0;
+  }
+
+  15%,
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(40px, 140px) rotate(140deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal,
+  .rise,
+  .monolith-number {
+    animation: none;
+  }
+
+  .tile:hover .tile-arrow {
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
