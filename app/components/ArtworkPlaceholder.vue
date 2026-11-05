@@ -2,7 +2,7 @@
 /**
  * Emplacement d’image. Tant qu’aucun `src` n’est fourni, affiche le cadre en pointillés
  * de la maquette. Une fois un visuel du kit presse ajouté dans `public/img/`,
- * passer `src`, `alt` et `credit`.
+ * passer `src`, `alt` et `credit`. `fit="contain"` affiche un visuel détouré en entier, sur fond sombre.
  */
 withDefaults(defineProps<{
   label: string
@@ -10,11 +10,13 @@ withDefaults(defineProps<{
   alt?: string
   credit?: string
   ratio?: string
+  fit?: 'cover' | 'contain'
 }>(), {
   src: undefined,
   alt: '',
   credit: 'Sandfall Interactive / Kepler Interactive',
-  ratio: '4 / 3'
+  ratio: '4 / 3',
+  fit: 'cover'
 })
 </script>
 
@@ -26,7 +28,8 @@ withDefaults(defineProps<{
     <img
       :src="src"
       :alt="alt"
-      class="w-full object-cover"
+      class="w-full"
+      :class="fit === 'contain' ? 'object-contain bg-ground' : 'object-cover'"
       :style="{ aspectRatio: ratio }"
       loading="lazy"
     >

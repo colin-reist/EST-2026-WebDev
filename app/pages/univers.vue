@@ -8,10 +8,10 @@ const piliers = [
 ]
 
 const figures = [
-  { artwork: 'Renoir', category: 'Menace', title: 'Renoir', text: 'Un vieil homme puissant qui attend l’expédition dès son arrivée. Ses motivations restent longtemps une énigme.' },
-  { artwork: 'Esquie', category: 'Allié', title: 'Esquie', text: 'Une immense créature ronde et attachante, compagnon et monture du groupe, qui débloque de nouvelles façons d’explorer.' },
-  { artwork: 'Gestrals', category: 'Peuple', title: 'Les Gestrals', text: 'Des créatures en bois, joueuses et obsédées par les duels. Leurs villages comptent parmi les lieux les plus vivants du continent.' },
-  { artwork: 'Nevrons', category: 'Adversaires', title: 'Les Nevrons', text: 'Les créatures hostiles du continent, aux formes étranges et souvent fascinantes. Les principaux adversaires de l’expédition.' }
+  { artwork: 'Renoir', image: '/img/Renoir.webp', imageAlt: 'Renoir, homme âgé aux cheveux gris et à la barbe grise, le visage marqué d’une cicatrice, en costume sombre et cravate noire.', category: 'Menace', title: 'Renoir', text: 'Un vieil homme puissant qui attend l’expédition dès son arrivée. Ses motivations restent longtemps une énigme.' },
+  { artwork: 'Esquie', image: '/img/Esquie.png', imageAlt: 'Esquie, immense créature ronde au visage lisse et paisible, entouré de rayons, dessinée à l’encre.', category: 'Allié', title: 'Esquie', text: 'Une immense créature ronde et attachante, compagnon et monture du groupe, qui débloque de nouvelles façons d’explorer.' },
+  { artwork: 'Gestrals', image: '/img/Gestral.png', imageAlt: 'Un Gestral, créature de bois articulée comme un mannequin, dont la tête évoque un grand pinceau.', category: 'Peuple', title: 'Les Gestrals', text: 'Des créatures en bois, joueuses et obsédées par les duels. Leurs villages comptent parmi les lieux les plus vivants du continent.' },
+  { artwork: 'Nevrons', image: '/img/Nevron.webp', imageAlt: 'Un Nevron en armure dorée et cape sombre, le visage bandé, coiffé d’une haute couronne et armé d’une lame.', category: 'Adversaires', title: 'Les Nevrons', text: 'Les créatures hostiles du continent, aux formes étranges et souvent fascinantes. Les principaux adversaires de l’expédition.' }
 ]
 </script>
 
@@ -97,7 +97,12 @@ const figures = [
             }"
           >
             <template #header>
-              <ArtworkPlaceholder :label="figure.artwork" />
+              <ArtworkPlaceholder
+                :label="figure.artwork"
+                :src="figure.image"
+                :alt="figure.imageAlt"
+                fit="contain"
+              />
             </template>
             <template #leading>
               <p class="m-0 font-ui text-[13px] text-gold-500">
