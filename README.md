@@ -13,7 +13,7 @@ La documentation technique (adaptations, bibliothèques, sources, IA) est fourni
 
 ### Prérequis
 
-- **Node.js 24** ([nodejs.org](https://nodejs.org)). Il installe aussi npm 11, nécessaire pour ce projet.
+- **Node.js 24.15 ou plus récent** ([nodejs.org](https://nodejs.org)), exigé par Nuxt 4. Il installe aussi npm 11, utilisé pour générer le `package-lock.json`.
 - Un navigateur récent (Firefox, Chrome, Edge ou Safari).
 
 Pour vérifier la version installée :
@@ -22,7 +22,7 @@ Pour vérifier la version installée :
 node -v
 ```
 
-Le résultat doit commencer par `v24`.
+Le résultat doit être `v24.15.0` ou une version plus récente.
 
 ### Lancement
 
@@ -79,7 +79,7 @@ Sous 768 px de large, le menu est remplacé par un bouton **☰** en haut à dro
 
 | Problème | Solution |
 |---|---|
-| `npm ci` ou `npm install` signale que le `package-lock.json` n'est pas synchronisé | Ta version de npm est trop ancienne. Installe Node.js 24, puis relance |
+| `npm ci` ou `npm install` signale que le `package-lock.json` n'est pas synchronisé | Ta version de npm est trop ancienne. Installe Node.js 24.15 ou plus récent, puis relance |
 | `Le jeton « && » n'est pas un séparateur d'instruction valide` (PowerShell) | Windows PowerShell 5 ne comprend pas `&&`. Tape les commandes une par une |
 | Le port 3000 est déjà utilisé | Lance le site sur un autre port : `npm run dev -- --port 3001` |
 | Les polices ne s'affichent pas correctement au premier lancement | Elles sont téléchargées depuis Google Fonts : vérifie la connexion internet, puis relance `npm run dev` |
