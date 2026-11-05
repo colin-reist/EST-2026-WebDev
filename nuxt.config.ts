@@ -45,11 +45,5 @@ export default defineNuxtConfig({
       'Jost': [400, 500]
     },
     display: 'swap'
-  },
-
-  i18n: {
-    strategy: 'no_prefix',
-    defaultLocale: 'fr',
-    locales: [{ code: 'fr', language: 'fr-FR', name: 'Français' }]
   }
 })
